@@ -19,13 +19,15 @@ const styles = theme => ({
   },
 });
 
+const API = 'http://cassusa.go.ro:3001/api';
+
 class App extends Component {
   state = {
     checkedB: false
   }
 
   componentDidMount() {
-    axios.get('http://192.168.1.8:3001/api/light')
+    axios.get(`${API}/light`)
       .then(response => {
         console.log(response.data);
         if (response.data.status === 0) {
@@ -37,7 +39,7 @@ class App extends Component {
   }
 
   handleChange = name => event => {
-    axios.post('http://192.168.1.8:3001/api/light', {
+    axios.post(`${API}/light`, {
       status: this.state.checkedB
     })
       .then(function (response) {
