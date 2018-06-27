@@ -22,9 +22,7 @@ connect via the first option (Xorg)
   a. in Windows:  
 	install ftp-simple VSCode extension  
 	press F1 and go to fpt-simple connection file  
-	[  
-		{  
-			"name": "192.168.1.10",  
+	[{ "name": "192.168.1.10",  https://github.com/muscaiu/react-light.git
 			"host": "192.168.1.10",  
 			"port": 21,  
 			"type": "ftp",  
@@ -37,8 +35,7 @@ connect via the first option (Xorg)
 				"/**/node_modules",  
 				"/**/*.class"  
 			]  
-		}  
-	]  
+	}]  
   b. in Pi:  
 	sudo apt-get install pure-ftpd  
 	sudo service pure-ftpd restart  
