@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled, { keyframes } from 'styled-components';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -18,6 +19,21 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
   },
 });
+
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const AppLogo = styled.img`
+  animation: ${props => props.isActive ? `${rotate360} infinite 20s linear` : 'null'};
+  height: 150px;
+`;
 
 const API = 'http://cassusa.go.ro:3001/api';
 
@@ -54,17 +70,15 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
+    const { checkedB } = this.state;
 
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">
-            Pompa Smart :-)
-          </h1>
+          <AppLogo isActive={checkedB} src={logo} />
           <h1 className="App-title">
             <Switch
-              checked={this.state.checkedB}
+              checked={checkedB}
               onChange={this.handleChange('checkedB')}
               value="checkedB"
               color="primary"
