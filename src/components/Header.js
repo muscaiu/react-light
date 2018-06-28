@@ -7,9 +7,7 @@ import Spinner from 'components/Spinner';
 import { API } from 'config/constants';
 
 const Wrapper = styled.div`
-  height: 100%;
-  padding: 30px;
-  color: #61DAFB;  
+  padding-top: 50px;
 `;
 
 class Header extends Component {

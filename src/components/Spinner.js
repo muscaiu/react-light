@@ -17,7 +17,7 @@ const rotate360 = keyframes`
 `;
 
 const Logo = styled.img`
-  animation: ${props => props.isActive ? `${rotate360} infinite 20s linear` : 'null'};
+  animation: ${props => props.isActive ? `${rotate360} infinite 20s linear;` : 'paused;'};
   height: 150px;
 `;
 
