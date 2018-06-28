@@ -1,45 +1,28 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 
-import logo from './logo.svg';
-import './App.css';
+import { API } from './config/constants';
+import Spinner from './Spinner';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-});
-
-const rotate360 = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+const Wrapper = styled.div`
+  text-align: center;
+  height: 100%;
+  background-color: #222;
 `;
 
-const AppLogo = styled.img`
-  animation: ${props => props.isActive ? `${rotate360} infinite 20s linear` : 'null'};
-  height: 150px;
+const Header = styled.div`
+  height: 100%;
+  padding: 30px;
+  color: #61DAFB;  
 `;
-
-const API = 'http://cassusa.go.ro:3001/api';
 
 class App extends Component {
   state = {
-    checkedB: false
+    isActive: false
   }
 
   componentDidMount() {
@@ -47,16 +30,16 @@ class App extends Component {
       .then(response => {
         console.log(response.data);
         if (response.data.status === 0) {
-          this.setState({ checkedB: true })
+          this.setState({ isActive: true })
         } else {
-          this.setState({ checkedB: false })
+          this.setState({ isActive: false })
         }
       })
-  }
+  };
 
   handleChange = name => event => {
     axios.post(`${API}/light`, {
-      status: this.state.checkedB
+      status: this.state.isActive
     })
       .then(function (response) {
         console.log(response.data);
@@ -69,25 +52,22 @@ class App extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { checkedB } = this.state;
+    const { isActive } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <AppLogo isActive={checkedB} src={logo} />
-          <h1 className="App-title">
-            <Switch
-              checked={checkedB}
-              onChange={this.handleChange('checkedB')}
-              value="checkedB"
-              color="primary"
-            />
-          </h1>
-        </header>
-      </div>
+      <Wrapper>
+        <Header>
+          <Spinner isActive={isActive} />
+          <Switch
+            checked={isActive}
+            onChange={this.handleChange('isActive')}
+            value="isActive"
+            color="primary"
+          />
+        </Header>
+      </Wrapper>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;
