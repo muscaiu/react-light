@@ -3,8 +3,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import Switch from '@material-ui/core/Switch';
-import Spinner from './Spinner';
-import { API } from '../config/constants';
+import Spinner from 'components/Spinner';
+import { API } from 'config/constants';
 
 const Wrapper = styled.div`
   height: 100%;

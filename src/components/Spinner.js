@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import logo from '../assets/logo.svg';
+import logo from 'assets/logo.svg';
 
 const Wrapper = styled.div`
 `;
