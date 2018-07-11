@@ -47,7 +47,10 @@ class LoginDialog extends Component {
             .then(function (response) { console.log(response.data) })
             .catch(function (error) { console.log(error) });
 
-          onOpdateState(!isActive);
+          onOpdateState({
+            status: !isActive,
+            lastAction: response.data.lastAction
+          });
           handleClose();
         } else {
           handleClose();

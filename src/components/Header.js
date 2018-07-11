@@ -6,8 +6,6 @@ import Spinner from 'components/Spinner';
 import Log from 'components/Log';
 import LoginDialog from './LoginDialog';
 import { API } from 'config/constants';
-import { isatty } from 'tty';
-import { SSL_OP_ALL } from 'constants';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -36,7 +34,10 @@ class Header extends Component {
   };
 
   updateState = (data) => {
-    this.setState({ isActive: data });
+    this.setState({ 
+      isActive: data.status,
+      lastAction: data.lastAction 
+    });
   };
 
   render() {
