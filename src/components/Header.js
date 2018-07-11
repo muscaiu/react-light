@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 import Switch from '@material-ui/core/Switch';
 import Spinner from 'components/Spinner';
+import Log from 'components/Log';
 import { API } from 'config/constants';
+import { isatty } from 'tty';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -12,7 +14,8 @@ const Wrapper = styled.div`
 
 class Header extends Component {
   state = {
-    isActive: false
+    isActive: false,
+    lastAction: null
   }
 
   componentDidMount() {
@@ -24,6 +27,7 @@ class Header extends Component {
         } else {
           this.setState({ isActive: false })
         }
+        this.setState({ lastAction: response.data.lastAction })
       })
   };
 
@@ -31,13 +35,9 @@ class Header extends Component {
     axios.post(`${API}/light`, {
       status: this.state.isActive
     })
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    console.log(event.target.checked);
+      .then(function (response) { console.log(response.data, event.target.checked) })
+      .catch(function (error) { console.log(error) });
+
     this.setState({ [name]: event.target.checked });
   };
 
@@ -51,6 +51,10 @@ class Header extends Component {
           onChange={this.handleChange('isActive')}
           value="isActive"
           color="primary"
+        />
+        <Log
+          lastAction={this.state.lastAction}
+          isActive={isActive}
         />
       </Wrapper>
     )
