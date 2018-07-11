@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import Switch from '@material-ui/core/Switch';
 import Spinner from 'components/Spinner';
 import Log from 'components/Log';
+import LoginDialog from './LoginDialog';
 import { API } from 'config/constants';
 import { isatty } from 'tty';
+import { SSL_OP_ALL } from 'constants';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -14,13 +15,16 @@ const Wrapper = styled.div`
 
 class Header extends Component {
   state = {
+    loading: false,
     isActive: false,
     lastAction: null
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
     axios.get(`${API}/light`)
       .then(response => {
+        this.setState({ loading: false });
         console.log(response.data);
         if (response.data.status === 0) {
           this.setState({ isActive: true })
@@ -31,31 +35,29 @@ class Header extends Component {
       })
   };
 
-  handleChange = name => event => {
-    axios.post(`${API}/light`, {
-      status: this.state.isActive
-    })
-      .then(function (response) { console.log(response.data, event.target.checked) })
-      .catch(function (error) { console.log(error) });
-
-    this.setState({ [name]: event.target.checked });
+  updateState = (data) => {
+    this.setState({ isActive: data });
   };
 
   render() {
-    const { isActive } = this.state;
+    const { loading, isActive } = this.state;
     return (
       <Wrapper>
-        <Spinner isActive={isActive} />
-        <Switch
-          checked={isActive}
-          onChange={this.handleChange('isActive')}
-          value="isActive"
-          color="primary"
-        />
-        <Log
-          lastAction={this.state.lastAction}
-          isActive={isActive}
-        />
+        {
+          !loading ?
+            <div>
+              <Spinner isActive={isActive} />
+              <Log
+                lastAction={this.state.lastAction}
+                isActive={isActive}
+              />
+              <LoginDialog
+                isActive={isActive}
+                onOpdateState={this.updateState}
+              />
+            </div> :
+            null
+        }
       </Wrapper>
     )
   }

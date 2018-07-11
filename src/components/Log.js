@@ -15,6 +15,10 @@ const Distance = styled.div`
   color: #7AC943;
 `;
 
+const Error = styled.div`
+  color: red;
+`;
+
 class Log extends Component {
   formatDate = (date) => {
     return format(date, 'HH:mm DD/MMM')
@@ -28,14 +32,18 @@ class Log extends Component {
     const { isActive, lastAction } = this.props;
 
     return (
-      <Wrapper>
-        <LastAction>
-          last action: {this.formatDate(lastAction)}
-        </LastAction>
-        <Distance>
-          {isActive ? 'running' : 'stopped'} for: {this.getDistance(lastAction)}
-        </Distance>
-      </Wrapper>
+      lastAction ?
+        <Wrapper>
+          <LastAction>
+            last action: {this.formatDate(lastAction)}
+          </LastAction>
+          <Distance>
+            {isActive ? 'ON' : 'OFF'} for: {this.getDistance(lastAction)}
+          </Distance>
+        </Wrapper> :
+        <Error >
+          Invalid data
+        </Error >
     )
   }
 }
