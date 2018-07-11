@@ -45,10 +45,10 @@ sudo apt-get remove nodejs
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -  
 sudo apt-get install -y nodejs  
 
-6. Install and run pm2
-sudo npm install -g pm2 
--before eject- sudo pm2 start node_modules/react-scripts/scripts/start.js --name "react-light"
--after eject- sudo pm2 start scr ipts/start.js --name "react-light"
-sudo pm2 start api --name "api"
-sudo pm2 startup 
-sudo pm2 save
+6. Install and run pm2  
+sudo npm install -g pm2   
+-before eject- sudo pm2 start node_modules/react-scripts/scripts/start.js --name "react-light"  
+-after eject- sudo pm2 start scr ipts/start.js --name "react-light"  
+sudo pm2 start api --name "api"  
+sudo pm2 startup  
+sudo pm2 save  
