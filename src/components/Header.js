@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { API } from 'config/constants';
 import Spinner from 'components/Spinner';
 import Log from 'components/Log';
-import LoginDialog from './LoginDialog';
+import OnOffSwitch from './OnOffSwitch';
+import AutoManualSwitch from './AutoManualSwitch';
 import Weather from './Weather';
 import pack from '../../package.json'
 
@@ -14,8 +15,15 @@ const Wrapper = styled.div`
 `;
 
 const Version = styled.div`
-  font-size: 9px;
-  color: grey;
+  color: darkgrey;
+  font-size: 8px;
+  position: fixed;
+  bottom: 10px;
+  padding: 10px;
+`;
+const ApiVersion = styled.div`
+  color: darkgrey;
+  font-size: 8px;
   position: fixed;
   bottom: 0;
   padding: 10px;
@@ -26,7 +34,9 @@ class Header extends Component {
     loading: false,
     isActive: false,
     lastAction: null,
-    lastWeatherUpdate: null
+    lastWeatherUpdate: null,
+    mode: null,
+    modeTime: null
   }
 
   componentDidMount() {
@@ -42,7 +52,9 @@ class Header extends Component {
         }
         this.setState({
           lastAction: response.data.lastAction,
-          lastWeatherUpdate: response.data.lastWeatherUpdate
+          lastWeatherUpdate: response.data.lastWeatherUpdate,
+          apiVersion: response.data.apiVersion,
+          mode: response.data.mode
         })
       })
       .catch((error) => {
@@ -58,30 +70,42 @@ class Header extends Component {
     });
   };
 
+  updateMode = (data) => {
+    console.log('data.mode', data.mode);
+    this.setState({
+      mode: data.mode,
+      modeTime: data.modeTime
+    });
+  };
+
   render() {
-    const { loading, isActive, lastWeatherUpdate } = this.state;
+    const { loading, isActive, mode, lastWeatherUpdate, apiVersion } = this.state;
     return (
       <Wrapper>
         {
           !loading ?
             <div>
               <Spinner isActive={isActive} />
-              <LoginDialog
+              <AutoManualSwitch
+                mode={mode}
+                onUpdateMode={this.updateMode}
+              />
+              <OnOffSwitch
+                isEnabled={mode === 'auto'}
                 isActive={isActive}
                 onOpdateState={this.updateState}
               />
               <Log
                 lastAction={this.state.lastAction}
+                mode={this.state.mode}
                 isActive={isActive}
               />
               {lastWeatherUpdate &&
                 <Weather lastWeatherUpdate={lastWeatherUpdate} />
               }
-              <br />
-              <br />
-              <br />
-              <br />
+
               <Version>version: {pack.version}</Version>
+              <ApiVersion>api version: {apiVersion}</ApiVersion>
             </div> :
             null
         }

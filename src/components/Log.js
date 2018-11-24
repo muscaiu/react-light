@@ -21,7 +21,7 @@ class Log extends Component {
   }
 
   render() {
-    const { isActive, lastAction } = this.props;
+    const { isActive, lastAction, mode } = this.props;
 
     return (
       lastAction ?
@@ -29,6 +29,9 @@ class Log extends Component {
           <Distance>
             {isActive ? 'ON' : 'OFF'} for: {this.getDistance(lastAction)}
           </Distance>
+          {/* <Distance>
+            {isActive ? 'ON' : 'OFF'} for: {this.getDistance(lastAction)}
+          </Distance> */}
         </Wrapper> :
         <Error >Invalid server data</Error >
     )

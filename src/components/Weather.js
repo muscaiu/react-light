@@ -4,29 +4,25 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
 `;
 
-const WeatherText = styled.div`
-  color: grey;
-`;
-
 const WeatherValue = styled.span`
+  font-size: 13px;
   color: white;
 `;
 
-// const WeatherIcon = styled.img`
-
-// `;
+const renderWatherText = (lastWeatherUpdate) => {
+  return (
+    lastWeatherUpdate &&
+    <WeatherValue>
+      {` ${lastWeatherUpdate.WeatherText} ${lastWeatherUpdate.Temperature.Metric.Value} °C`};
+    </WeatherValue>
+  )
+}
 
 const Weather = ({ lastWeatherUpdate }) => {
   return (
     lastWeatherUpdate ?
       <Wrapper>
-        {/* <WeatherIcon
-          src={`https://developer.accuweather.com/sites/default/files/${lastWeatherUpdate.WeatherIcon}-s.png`}
-        /> */}
-        <WeatherValue>
-          {lastWeatherUpdate.WeatherText} &nbsp;
-            {lastWeatherUpdate.Temperature.Metric.Value} °C
-          </WeatherValue>
+        {/* {renderWatherText(lastWeatherUpdate)} */}
       </Wrapper> :
       <div>loading...</div>
   )
