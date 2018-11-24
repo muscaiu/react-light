@@ -42,7 +42,7 @@ class Log extends Component {
           </Distance>
         </Wrapper> :
         <Error >
-          Invalid data
+          Invalid server data
         </Error >
     )
   }

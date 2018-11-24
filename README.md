@@ -52,3 +52,6 @@ sudo npm install -g pm2
 sudo pm2 start api --name "api"  
 sudo pm2 startup  
 sudo pm2 save  
+
+7. Install MongoDB
+sod apt-get install mongodb

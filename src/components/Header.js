@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import { API } from 'config/constants';
 import Spinner from 'components/Spinner';
 import Log from 'components/Log';
 import LoginDialog from './LoginDialog';
-import { API } from 'config/constants';
+import Weather from './Weather';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -15,7 +16,8 @@ class Header extends Component {
   state = {
     loading: false,
     isActive: false,
-    lastAction: null
+    lastAction: null,
+    lastWeatherUpdate: null
   }
 
   componentDidMount() {
@@ -29,33 +31,44 @@ class Header extends Component {
         } else {
           this.setState({ isActive: false })
         }
-        this.setState({ lastAction: response.data.lastAction })
+        this.setState({
+          lastAction: response.data.lastAction,
+          lastWeatherUpdate: response.data.lastWeatherUpdate
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
       })
   };
 
   updateState = (data) => {
-    this.setState({ 
+    this.setState({
       isActive: data.status,
-      lastAction: data.lastAction 
+      lastAction: data.lastAction
     });
   };
 
   render() {
-    const { loading, isActive } = this.state;
+    const { loading, isActive, lastWeatherUpdate } = this.state;
+
     return (
       <Wrapper>
         {
           !loading ?
             <div>
               <Spinner isActive={isActive} />
-              <Log
-                lastAction={this.state.lastAction}
-                isActive={isActive}
-              />
               <LoginDialog
                 isActive={isActive}
                 onOpdateState={this.updateState}
               />
+              <Log
+                lastAction={this.state.lastAction}
+                isActive={isActive}
+              />
+              {lastWeatherUpdate &&
+                <Weather lastWeatherUpdate={lastWeatherUpdate} />
+              }
             </div> :
             null
         }

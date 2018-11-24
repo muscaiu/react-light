@@ -56,7 +56,10 @@ class LoginDialog extends Component {
           handleClose();
         }
       })
-      .catch(function (error) { console.log(error) });
+      .catch(function (error) {
+        console.log(error);
+        handleClose();
+      });
   };
 
   render() {
