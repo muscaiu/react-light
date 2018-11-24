@@ -7,9 +7,18 @@ import Spinner from 'components/Spinner';
 import Log from 'components/Log';
 import LoginDialog from './LoginDialog';
 import Weather from './Weather';
+import pack from '../../package.json'
 
 const Wrapper = styled.div`
   padding-top: 50px;
+`;
+
+const Version = styled.div`
+  font-size: 9px;
+  color: grey;
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
 `;
 
 class Header extends Component {
@@ -51,7 +60,6 @@ class Header extends Component {
 
   render() {
     const { loading, isActive, lastWeatherUpdate } = this.state;
-
     return (
       <Wrapper>
         {
@@ -69,6 +77,11 @@ class Header extends Component {
               {lastWeatherUpdate &&
                 <Weather lastWeatherUpdate={lastWeatherUpdate} />
               }
+              <br />
+              <br />
+              <br />
+              <br />
+              <Version>version: {pack.version}</Version>
             </div> :
             null
         }

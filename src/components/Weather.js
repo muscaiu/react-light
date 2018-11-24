@@ -12,24 +12,21 @@ const WeatherValue = styled.span`
   color: white;
 `;
 
-const WeatherIcon = styled.img`
+// const WeatherIcon = styled.img`
 
-`;
+// `;
 
 const Weather = ({ lastWeatherUpdate }) => {
   return (
     lastWeatherUpdate ?
       <Wrapper>
-        <WeatherIcon
+        {/* <WeatherIcon
           src={`https://developer.accuweather.com/sites/default/files/${lastWeatherUpdate.WeatherIcon}-s.png`}
-        />
-        <WeatherText>
-          current weather: &nbsp;
-          <WeatherValue>
-            {lastWeatherUpdate.WeatherText} &nbsp;
+        /> */}
+        <WeatherValue>
+          {lastWeatherUpdate.WeatherText} &nbsp;
             {lastWeatherUpdate.Temperature.Metric.Value} °C
           </WeatherValue>
-        </WeatherText>
       </Wrapper> :
       <div>loading...</div>
   )

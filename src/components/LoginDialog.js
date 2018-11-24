@@ -97,7 +97,7 @@ class LoginDialog extends Component {
               Cancel
             </Button>
             <Button onClick={this.handleLogin} color="primary">
-              Login
+              Confirm
             </Button>
           </DialogActions>
         </Dialog>
