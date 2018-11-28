@@ -16,7 +16,6 @@ const OnOff = styled.span`
   ${props => `color: ${props.color}`};
 `;
 
-
 class OnOffSwitch extends Component {
 
   state = {
@@ -42,30 +41,32 @@ class OnOffSwitch extends Component {
       isActive,
       onOpdateState
     } = this.props;
-    const { handleClose } = this;
+    this.props.onStatusClick();
+    
+    // const { handleClose } = this;
+    // axios.post(`${API}/login`, { password })
+    //   .then(function (response) {
+    //     if (response.data.access) {
+    //       axios.post(`${API}/light`, {
+    //         status: !isActive
+    //       })
+    //         .then(function (response) { console.log(response.data) })
+    //         .catch(function (error) { console.log(error) });
 
-    axios.post(`${API}/login`, { password })
-      .then(function (response) {
-        if (response.data.access) {
-          axios.post(`${API}/light`, {
-            status: !isActive
-          })
-            .then(function (response) { console.log(response.data) })
-            .catch(function (error) { console.log(error) });
-
-          onOpdateState({
-            status: !isActive,
-            lastAction: response.data.lastAction
-          });
-          handleClose();
-        } else {
-          handleClose();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        handleClose();
-      });
+    //       onOpdateState({
+    //         status: !isActive,
+    //         lastAction: response.data.lastAction
+    //       });
+    //       handleClose();
+    //     } else {
+    //       handleClose();
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     handleClose();
+    //   });
+    this.handleClose();
   };
 
   render() {
