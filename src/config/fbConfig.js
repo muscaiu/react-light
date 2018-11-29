@@ -3,12 +3,12 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-    apiKey: "AIzaSyDu1V6eO6vQczNtecZdo8rVvFQAZB6llyg",
-    authDomain: "pompa-b855f.firebaseapp.com",
-    databaseURL: "https://pompa-b855f.firebaseio.com",
-    projectId: "pompa-b855f",
-    storageBucket: "pompa-b855f.appspot.com",
-    messagingSenderId: "145084180701"
+    apiKey: "AIzaSyDLm2fW6HErord99U4_RJR8ia949gHmKVM",
+    authDomain: "pump-3e29a.firebaseapp.com",
+    databaseURL: "https://pump-3e29a.firebaseio.com",
+    projectId: "pump-3e29a",
+    storageBucket: "",
+    messagingSenderId: "1001221036910"
 };
 
 firebase.initializeApp(config);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-var distanceInWordsToNow = require('date-fns/distance_in_words_to_now');
+// var distanceInWordsToNow = require('date-fns/distance_in_words_to_now');
+import moment from 'moment'
 
 const Wrapper = styled.div`
   padding-top: 40px;
@@ -18,19 +19,17 @@ const AutoModeLog = styled.div`
 `
 
 class Log extends Component {
-
-  getDistance = (date) => {
-    return distanceInWordsToNow(date)
+  getDistance = () => {
+    return moment(this.props.lastAction.toDate()).from()
   }
 
   render() {
     const { isActive, lastAction, mode } = this.props;
-
     return (
       lastAction ?
         <Wrapper>
           <Distance>
-            {isActive ? 'ON' : 'OFF'} for: {this.getDistance(lastAction)}
+            {isActive ? 'ON' : 'OFF'} for: {this.getDistance()}
           </Distance>
           <AutoModeLog>
             Auto interval : 19:00 - 20:00

@@ -11,7 +11,7 @@ import OnOffSwitch from './OnOffSwitch';
 import AutoManualSwitch from './AutoManualSwitch';
 import Weather from './Weather';
 import pack from '../../package.json'
-import { toggleStatus } from '../actions/statusActions';
+import * as actions from '../actions/actions';
 
 const Wrapper = styled.div`
   padding-top: 50px;
@@ -34,70 +34,47 @@ const ApiVersion = styled.div`
 
 class Header extends Component {
   state = {
-    isActive: false,
-    lastAction: null,
-    lastWeatherUpdate: null,
-    mode: null,
-    modeTime: null
+    mode: 'manual',
+    lastAction: 'qqq'
   }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const status = nextProps.status && nextProps.status[0].status
-    console.log('getDerivedStateFromProps status', status);
-    return {
-      isActive: status
-    }
+  hanldeToggleMode = () => {
+    this.props.toggleMode(this.props.fbMode);
   }
-
-  updateMode = (data) => {
-    console.log('data.mode', data.mode);
-    this.setState({
-      mode: data.mode,
-      modeTime: data.modeTime
-    });
-  };
-
-  // updateState = () => {
-  //   this.setState({
-  //     isActive: !this.state.isActive,
-  //     lastAction: this.state.lastAction
-  //   });
-  // };
 
   hanldeToggleStats = () => {
-    console.log('toggle', this.state.isActive);
-    this.props.toggleStatus(this.state.isActive);
+    this.props.toggleStatus(this.props.fbStatus);
   }
 
   render() {
-    const { mode, lastWeatherUpdate, apiVersion } = this.state;
-    const status = this.props.status && this.props.status[0].status;
-    console.log(isLoaded(status));
+    const { mode, apiVersion } = this.state;
+    const { fbStatus, fbLastAction } = this.props;
+
+    console.log(fbStatus, fbLastAction);
+    console.log('isLoaded', isLoaded(fbStatus));
 
     return (
       <Wrapper>
         {
-          isLoaded(status) ?
+          isLoaded(fbStatus) ?
             <div>
-              <Spinner isActive={status} />
+              <Spinner isActive={fbStatus} />
               <AutoManualSwitch
                 mode={mode}
                 onUpdateMode={this.updateMode}
               />
               <OnOffSwitch
                 isEnabled={mode === 'auto'}
-                isActive={status}
+                isActive={fbStatus}
                 onStatusClick={this.hanldeToggleStats}
-                // onUpdateState={this.updateState}
               />
               <Log
-                lastAction={this.state.lastAction}
+                lastAction={fbLastAction}
                 mode={this.state.mode}
-                isActive={status}
+                isActive={fbStatus}
               />
-              {lastWeatherUpdate &&
+              {/* {lastWeatherUpdate &&
                 <Weather lastWeatherUpdate={lastWeatherUpdate} />
-              }
+              } */}
               <Version>version: {pack.version}</Version>
               <ApiVersion>api version: {apiVersion}</ApiVersion>
             </div> :
@@ -109,17 +86,15 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
+  const fbStatusList = state.firestore.ordered.status;
   return {
-    status: state.firestore.ordered.status,
+    fbStatus: fbStatusList && fbStatusList[0].value,
+    fbLastAction: fbStatusList && fbStatusList[0].createdAt
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleStatus: status => dispatch(toggleStatus(status))
-  }
-}
+
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, actions),
   firestoreConnect([
     { collection: 'status', limit: 1, orderBy: ['createdAt', 'desc'] }
   ])

@@ -1,14 +1,10 @@
-const initState = {
-  status: 'true'
-};
-
-const statusReducer = (state = initState, action) => {
+const statusReducer = (state = {}, action) => {
   switch (action.type) {
     case 'STATUS_ON': {
-      return { ...state, status: true }
+      return { ...state, reduxStatus: true }
     }
     case 'STATUS_OFF': {
-      return { ...state, status: false }
+      return { ...state, reduxStatus: false }
     }
     case 'STATUS_ERROR': {
       console.log('STATUS_ERROR', action.err)
