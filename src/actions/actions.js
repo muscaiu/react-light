@@ -1,4 +1,5 @@
 export const toggleStatus = (currStatus) => {
+    console.log('currStatus', currStatus);
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
         if (currStatus === false) {
@@ -27,7 +28,6 @@ export const toggleStatus = (currStatus) => {
     }
 }
 
-
 export const toggleMode = (currMode) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
@@ -37,7 +37,7 @@ export const toggleMode = (currMode) => {
                 createdAt: new Date()
             })
         } else {
-            firestore.collection('status').add({
+            firestore.collection('mode').add({
                 value: 'manual',
                 createdAt: new Date()
             })

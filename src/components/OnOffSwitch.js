@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 
 import Switch from '@material-ui/core/Switch';
@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { API } from 'config/constants';
+// import { API } from 'config/constants';
 
 const OnOff = styled.span`
   ${props => `color: ${props.color}`};
@@ -36,11 +36,11 @@ class OnOffSwitch extends Component {
   };
 
   handleLogin = () => {
-    const { password } = this.state;
-    const {
-      isActive,
-      onOpdateState
-    } = this.props;
+    // const { password } = this.state;
+    // const {
+    //   isActive,
+    //   onOpdateState
+    // } = this.props;
     this.props.onStatusClick();
     
     // const { handleClose } = this;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 
 import Switch from '@material-ui/core/Switch';
@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { API } from 'config/constants';
+// import { API } from 'config/constants';
 
 const AutoManual = styled.span`
   ${props => `color: ${props.color}`};
@@ -36,33 +36,34 @@ class LoginDialog extends Component {
   };
 
   handleLogin = () => {
-    const { password } = this.state;
-    const {
-      mode,
-      onUpdateMode
-    } = this.props;
-    const { handleClose } = this;
+    // const { password } = this.state;
+    // const {
+    //   mode,
+    //   onUpdateMode
+    // } = this.props;
+    this.props.onModeClick();
 
 
-    axios.post(`${API}/mode`, {
-      password,
-      mode: mode === 'manual' ? 'auto' : 'manual'
-    })
-      .then(function (response) {
-        if (response.data.access) {
-          onUpdateMode({
-            mode: mode === 'manual' ? 'auto' : 'manual',
-            modeTime: response.data.modeTime
-          });
-          handleClose();
-        } else {
-          handleClose();
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        handleClose();
-      });
+    // axios.post(`${API}/mode`, {
+    //   password,
+    //   mode: mode === 'manual' ? 'auto' : 'manual'
+    // })
+    //   .then(function (response) {
+    //     if (response.data.access) {
+    //       onUpdateMode({
+    //         mode: mode === 'manual' ? 'auto' : 'manual',
+    //         modeTime: response.data.modeTime
+    //       });
+    //       handleClose();
+    //     } else {
+    //       handleClose();
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     handleClose();
+    //   });
+    this.handleClose();
   };
 
   render() {

@@ -24,12 +24,16 @@ class Log extends Component {
   }
 
   render() {
-    const { isActive, lastAction, mode } = this.props;
+    const {
+      isActive,
+      lastAction,
+      // mode
+    } = this.props;
     return (
       lastAction ?
         <Wrapper>
           <Distance>
-            {isActive ? 'ON' : 'OFF'} for: {this.getDistance()}
+            {isActive ? 'ON' : 'OFF'} since: {this.getDistance()}
           </Distance>
           <AutoModeLog>
             Auto interval : 19:00 - 20:00
